@@ -16,6 +16,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve Vercel Speed Insights package
+app.use('/@vercel/speed-insights', express.static(path.join(__dirname, 'node_modules/@vercel/speed-insights/dist')));
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function detectType(prog) {
