@@ -10,6 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const IS_VERCEL = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
@@ -300,7 +301,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🎓 IGNOU Grade Card Calculator`);
-  console.log(`   Running at: http://localhost:${PORT}\n`);
-});
+if (!IS_VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n🎓 IGNOU Grade Card Calculator`);
+    console.log(`   Running at: http://localhost:${PORT}\n`);
+  });
+}
+
+export default app;
